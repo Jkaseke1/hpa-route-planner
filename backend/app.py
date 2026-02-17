@@ -261,8 +261,7 @@ def map_facilities():
     df = df[df["latitude"].notna() & df["longitude"].notna()]
     df["facility_type"] = df["facility_type"].fillna("unknown")
 
-    df = df.where(pd.notnull(df), None)
-    df = df.replace({np.nan: None})
+    df = df.fillna(None)
     data = df[["facility name", "city", "latitude", "longitude", "facility_type"]].rename(
         columns={
             "facility name": "Facility Name",
@@ -272,6 +271,12 @@ def map_facilities():
             "facility_type": "Facility Type"
         }
     ).to_dict(orient="records")
+
+    # Ensure no NaN values remain in the data
+    for item in data:
+        for k in item:
+            if pd.isna(item[k]):
+                item[k] = None
 
     return jsonify(data)
 

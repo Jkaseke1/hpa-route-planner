@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sales Rep Route Planner - HPA Facilities</title>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -403,7 +404,20 @@
             box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
             color: white;
         }
-    </style>
+        @media (max-width: 768px) {
+            #map {
+                height: calc(100vh - 350px);
+            }
+            .facility-list {
+                max-height: 250px;
+            }
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            .control-panel {
+                padding: 15px;
+            }
+        }
 </head>
 
 <body>

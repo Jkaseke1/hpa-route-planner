@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>HPA Facilities Intelligence Dashboard</title>
 
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
@@ -46,6 +47,18 @@
         .chart-card {
             background: #fff3e0;
         }
+
+        @media (max-width: 768px) {
+            .kpi {
+                font-size: 24px;
+            }
+            .label {
+                font-size: 12px;
+            }
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -53,7 +66,7 @@
     <nav class="navbar fixed-top navbar-dark bg-dark">
         <div class="container-fluid">
             <span class="navbar-brand">🏥 HPA Facilities Intelligence</span>
-            <div>
+            <div class="d-flex gap-2 flex-wrap">
                 <button class="btn btn-primary btn-sm" onclick="loadDashboard(true)">🔄 Refresh</button>
                 <a href="/map" class="btn btn-map btn-sm">🗺️ View Map</a>
             </div>
@@ -154,6 +167,9 @@
                     data: {
                         labels: ["Geocoded", "Missing"],
                         datasets: [{ data: [data.geocoded, data.missing], backgroundColor: ["#1f3c88", "#d9534f"] }]
+                    },
+                    options: {
+                        responsive: true
                     }
                 });
 
@@ -163,6 +179,9 @@
                     data: {
                         labels: data.top_cities.map(c => c.city),
                         datasets: [{ label: "Facilities", data: data.top_cities.map(c => c.count), backgroundColor: "#0b4da2" }]
+                    },
+                    options: {
+                        responsive: true
                     }
                 });
 
@@ -196,6 +215,7 @@
                         }]
                     },
                     options: {
+                        responsive: true,
                         plugins: {
                             legend: {
                                 position: 'bottom',

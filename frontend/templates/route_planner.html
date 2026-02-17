@@ -754,6 +754,7 @@
         let destMarker = null;
         let currentFacilities = [];
         let filteredFacilities = [];
+        let searchQuery = '';
         let originCoords = null;
         let destCoords = null;
 
@@ -1064,17 +1065,9 @@
                 }
 
                 // Update stats
-                document.getElementById("totalFacilities").textContent = currentFacilities.length;
-                document.getElementById("pharmacyCount").textContent = 
-                    currentFacilities.filter(f => f.facility_type === "Pharmacy").length;
-                document.getElementById("hospitalCount").textContent = 
-                    currentFacilities.filter(f => f.facility_type === "Hospital").length;
-
-                // Update facility list and table
-                renderFacilityList();
-                renderFacilityTable();
-
-                updateStats(filteredFacilities);
+                currentFacilities.forEach((f, idx) => f.index = idx);
+                searchQuery = '';
+                applyFilters();
 
                 showNotification(`Found ${currentFacilities.length} facilities on route`, 'success');
 
@@ -1103,6 +1096,24 @@
             document.getElementById("totalFacilities").textContent = facilities.length;
             document.getElementById("pharmacyCount").textContent = facilities.filter(f => f.facility_type === "Pharmacy").length;
             document.getElementById("hospitalCount").textContent = facilities.filter(f => f.facility_type === "Hospital").length;
+        }
+
+        function applyFilters() {
+            try {
+                const selectedTypes = getSelectedFacilityTypes();
+                const base = currentFacilities.filter(f => selectedTypes.includes(f.facility_type));
+                filteredFacilities = base.filter(f =>
+                    f.facility_name.toLowerCase().includes(searchQuery) ||
+                    f.city.toLowerCase().includes(searchQuery) ||
+                    f.facility_type.toLowerCase().includes(searchQuery)
+                );
+                renderFacilityList();
+                renderFacilityTable();
+                updateStats(filteredFacilities);
+            } catch (err) {
+                console.error('Error applying filters:', err);
+                showNotification('Error filtering facilities', 'error');
+            }
         }
 
         function renderFacilityList(facilities = filteredFacilities) {
@@ -1202,15 +1213,13 @@
 
             // Facility search listener
             document.getElementById('facilitySearch').addEventListener('input', function() {
-                const q = this.value.toLowerCase();
-                filteredFacilities = currentFacilities.filter(f =>
-                    f.facility_name.toLowerCase().includes(q) ||
-                    f.city.toLowerCase().includes(q) ||
-                    f.facility_type.toLowerCase().includes(q)
-                );
-                renderFacilityList();
-                renderFacilityTable();
-                updateStats(filteredFacilities);
+                searchQuery = this.value.toLowerCase();
+                applyFilters();
+            });
+
+            // Filter checkboxes listeners
+            document.querySelectorAll('.form-check-input[id^="filter"]').forEach(cb => {
+                cb.addEventListener('change', applyFilters);
             });
         });
 

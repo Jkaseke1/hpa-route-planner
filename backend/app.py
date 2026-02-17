@@ -8,7 +8,7 @@ import json
 import logging
 import smtplib
 from email.mime.text import MIMEText
-from utils.facility_type import detect_facility_type
+from frontend.utils.facility_type import detect_facility_type
 
 logging.basicConfig(level=logging.INFO)
 

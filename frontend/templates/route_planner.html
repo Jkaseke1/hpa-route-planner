@@ -582,9 +582,12 @@
                         <div class="tab-pane fade show active" id="listTab">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <span><i class="fas fa-hospital"></i> Facilities on Route</span>
-                                <button class="btn btn-sm btn-outline-primary" onclick="exportRouteList()">
-                                    <i class="fas fa-download"></i> CSV
-                                </button>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <input id="facilitySearch" class="form-control form-control-sm" placeholder="Search facilities..." style="max-width:200px;">
+                                    <button class="btn btn-sm btn-outline-primary" onclick="exportRouteList()">
+                                        <i class="fas fa-download"></i> CSV
+                                    </button>
+                                </div>
                             </div>
                             <div class="card-body p-0 facility-list" id="facilityList">
                                 <div class="text-center text-muted p-4">
@@ -750,6 +753,7 @@
         let originMarker = null;
         let destMarker = null;
         let currentFacilities = [];
+        let filteredFacilities = [];
         let originCoords = null;
         let destCoords = null;
 
@@ -971,7 +975,8 @@
                 });
 
                 const data = await res.json();
-                currentFacilities = data.facilities || [];
+                currentFacilities.forEach((f, idx) => f.index = idx);
+                filteredFacilities = [...currentFacilities];
 
                 // Update map
                 clearMap();
@@ -1069,6 +1074,8 @@
                 renderFacilityList();
                 renderFacilityTable();
 
+                updateStats(filteredFacilities);
+
                 showNotification(`Found ${currentFacilities.length} facilities on route`, 'success');
 
             } catch (err) {
@@ -1092,20 +1099,16 @@
             }
         });
 
-        function clearMap() {
-            markers.forEach(m => map.removeLayer(m));
-            markers = [];
-            if (routeLine) map.removeLayer(routeLine);
-            if (originMarker) map.removeLayer(originMarker);
-            if (destMarker) map.removeLayer(destMarker);
-            corridorCircles.forEach(c => map.removeLayer(c));
-            corridorCircles = [];
+        function updateStats(facilities) {
+            document.getElementById("totalFacilities").textContent = facilities.length;
+            document.getElementById("pharmacyCount").textContent = facilities.filter(f => f.facility_type === "Pharmacy").length;
+            document.getElementById("hospitalCount").textContent = facilities.filter(f => f.facility_type === "Hospital").length;
         }
 
-        function renderFacilityList() {
+        function renderFacilityList(facilities = filteredFacilities) {
             const list = document.getElementById("facilityList");
             
-            if (currentFacilities.length === 0) {
+            if (facilities.length === 0) {
                 list.innerHTML = `
                     <div class="text-center text-muted p-4">
                         <i class="fas fa-search fa-2x mb-2"></i><br>
@@ -1116,8 +1119,8 @@
                 return;
             }
 
-            list.innerHTML = currentFacilities.map((f, idx) => `
-                <div class="facility-item" onclick="focusFacility(${idx})">
+            list.innerHTML = facilities.map((f, idx) => `
+                <div class="facility-item" onclick="focusFacility(${f.index})">
                     <div class="d-flex justify-content-between align-items-start">
                         <div>
                             <span class="legend-dot me-1" style="background:${iconColors[f.facility_type] || '#757575'};width:10px;height:10px;"></span>
@@ -1136,16 +1139,16 @@
             `).join("");
         }
 
-        function renderFacilityTable() {
+        function renderFacilityTable(facilities = filteredFacilities) {
             const tbody = document.getElementById("facilityTableBody");
             
-            if (currentFacilities.length === 0) {
+            if (facilities.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted p-3">No facilities found</td></tr>';
                 return;
             }
 
-            tbody.innerHTML = currentFacilities.map((f, idx) => `
-                <tr onclick="focusFacility(${idx})" style="cursor:pointer;">
+            tbody.innerHTML = facilities.map((f, idx) => `
+                <tr onclick="focusFacility(${f.index})" style="cursor:pointer;">
                     <td>${idx + 1}</td>
                     <td>
                         <span class="legend-dot" style="background:${iconColors[f.facility_type] || '#757575'};width:8px;height:8px;"></span>
@@ -1167,13 +1170,13 @@
         }
 
         function exportRouteList() {
-            if (currentFacilities.length === 0) {
+            if (filteredFacilities.length === 0) {
                 alert("No facilities to export");
                 return;
             }
 
             let csv = "Order,Facility Name,City,Type,Distance from Start (km),Distance from Route (km),Latitude,Longitude\n";
-            currentFacilities.forEach((f, idx) => {
+            filteredFacilities.forEach((f, idx) => {
                 csv += `${idx + 1},"${f.facility_name}","${f.city}","${f.facility_type}",${f.distance_from_origin_km},${f.distance_from_route_km},${f.latitude},${f.longitude}\n`;
             });
 
@@ -1196,6 +1199,19 @@
                     console.log("Data refreshed:", data);
                 })
                 .catch(err => console.error("Auto-refresh failed:", err));
+
+            // Facility search listener
+            document.getElementById('facilitySearch').addEventListener('input', function() {
+                const q = this.value.toLowerCase();
+                filteredFacilities = currentFacilities.filter(f =>
+                    f.facility_name.toLowerCase().includes(q) ||
+                    f.city.toLowerCase().includes(q) ||
+                    f.facility_type.toLowerCase().includes(q)
+                );
+                renderFacilityList();
+                renderFacilityTable();
+                updateStats(filteredFacilities);
+            });
         });
 
         // Enter key triggers search in Select2

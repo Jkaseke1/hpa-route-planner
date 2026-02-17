@@ -718,35 +718,40 @@
             L.latLng(-15.5, 33.1)   // Northeast
         );
 
-        const map = L.map("map", {
-            maxBounds: zimbabweBounds,
-            maxBoundsViscosity: 1.0,
-            minZoom: 6,
-            maxZoom: 18
-        }).setView([-19.0154, 29.1549], 7);
+        try {
+            const map = L.map("map", {
+                maxBounds: zimbabweBounds,
+                maxBoundsViscosity: 1.0,
+                minZoom: 6,
+                maxZoom: 18
+            }).setView([-19.0154, 29.1549], 7);
 
-        // Restrict panning to Zimbabwe
-        map.setMaxBounds(zimbabweBounds);
+            // Restrict panning to Zimbabwe
+            map.setMaxBounds(zimbabweBounds);
 
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            attribution: '© OpenStreetMap'
-        }).addTo(map);
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                attribution: '© OpenStreetMap'
+            }).addTo(map);
 
-        // Add Zimbabwe border outline
-        fetch('https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson')
-            .then(r => r.json())
-            .then(data => {
-                const zim = data.features.find(f => f.properties.ADMIN === 'Zimbabwe');
-                if (zim) {
-                    L.geoJSON(zim, {
-                        style: {
-                            color: '#0f3460',
-                            weight: 2,
-                            fillOpacity: 0.02
-                        }
-                    }).addTo(map);
-                }
-            }).catch(() => {});
+            // Add Zimbabwe border outline
+            fetch('https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson')
+                .then(r => r.json())
+                .then(data => {
+                    const zim = data.features.find(f => f.properties.ADMIN === 'Zimbabwe');
+                    if (zim) {
+                        L.geoJSON(zim, {
+                            style: {
+                                color: '#0f3460',
+                                weight: 2,
+                                fillOpacity: 0.02
+                            }
+                        }).addTo(map);
+                    }
+                }).catch(() => {});
+        } catch (err) {
+            console.error('Map initialization error:', err);
+            showNotification('Error loading map. Please refresh the page.', 'error');
+        }
 
         let markers = [];
         let routeLine = null;

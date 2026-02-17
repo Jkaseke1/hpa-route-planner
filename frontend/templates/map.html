@@ -275,19 +275,12 @@
 
     <div class="top-panel d-flex flex-column gap-2">
 
-        <div class="d-flex gap-2">
-            <select id="cityFilter" class="form-select form-select-sm" style="max-width:200px">
-                <option value="">All Cities</option>
-            </select>
+    <body>
 
-            <input id="searchInput" class="form-control form-control-sm"
-                   placeholder="Search facility name..." style="max-width:250px">
-
-            <button class="btn btn-sm btn-outline-primary" onclick="exportCSV()">⬇ Export CSV</button>
-        </div>
-
-        <div class="legend">
-            <div class="legend-item"><span class="legend-dot" style="background:#e53935;"></span> Hospital</div>
+        <nav class="navbar navbar-dark bg-dark">
+            <div class="container-fluid">
+                <span class="navbar-brand">🗺️ HPA Facilities Map</span>
+                <a href="/" class="btn btn-outline-light btn-sm">Dashboard</a>
             <div class="legend-item"><span class="legend-dot" style="background:#1e88e5;"></span> Clinic</div>
             <div class="legend-item"><span class="legend-dot" style="background:#43a047;"></span> Pharmacy</div>
             <div class="legend-item"><span class="legend-dot" style="background:#8e24aa;"></span> Dental</div>
@@ -528,7 +521,7 @@
                 console.log(`Showing ${filtered.length} of ${allData.length} facilities`);
             }
 
-            cityFilter.onchange = searchInput.oninput = applyFilters;
+            cityFilter.onchange = applyFilters;
 
             function exportCSV() {
                 let csv = "Facility Name,City,Facility Type,Latitude,Longitude\n";

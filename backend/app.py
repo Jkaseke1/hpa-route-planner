@@ -1,5 +1,6 @@
 ﻿from flask import Flask, jsonify, render_template, request
 import pandas as pd
+import numpy as np
 import os
 import subprocess
 from datetime import datetime
@@ -261,6 +262,7 @@ def map_facilities():
     df["facility_type"] = df["facility_type"].fillna("unknown")
 
     df = df.where(pd.notnull(df), None)
+    df = df.replace({np.nan: None})
     data = df[["facility name", "city", "latitude", "longitude", "facility_type"]].rename(
         columns={
             "facility name": "Facility Name",

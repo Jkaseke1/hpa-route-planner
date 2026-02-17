@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\backend",
+    "\\backend\\utils",
+    "\\data",
+    "\\frontend",
+    "\\frontend\\static",
+    "\\frontend\\templates",
+    "\\frontend\\templates\\map",
+    "\\scraper",
+    "\\scraper\\data"
+  ],
+  "SelectedNode": "\\backend\\app.py",
+  "PreviewInSolutionExplorer": false
+}

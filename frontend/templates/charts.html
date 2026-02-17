@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Facilities Charts & Heatmap</title>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f6f8; margin:0; padding:20px; }
+        h1 { color: #2c3e50; margin-bottom: 20px; }
+        #charts-container { max-width: 900px; margin: auto; }
+        canvas { background:white; border-radius:8px; padding:10px; margin-bottom:30px; box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+        #map { height: 600px; width: 100%; border-radius:8px; margin-bottom:30px; }
+    </style>
+</head>
+<body>
+
+<h1>HPA Facilities Charts & Heatmap</h1>
+
+<div id="charts-container">
+    <canvas id="cityChart"></canvas>
+    <div id="map"></div>
+</div>
+
+<script>
+async function loadCharts() {
+    try {
+        // Fetch summary data for bar chart
+        const response = await fetch("/api/summary");
+        const data = await response.json();
+
+        // ----- Bar Chart: Facilities per City -----
+        const cities = Object.keys(data.by_city);
+        const counts = Object.values(data.by_city);
+
+        // Sort descending
+        const combined = cities.map((city,i)=>({city,count:counts[i]}));
+        combined.sort((a,b)=>b.count - a.count);
+
+        const sortedCities = combined.map(c=>c.city);
+        const sortedCounts = combined.map(c=>c.count);
+
+        // Color gradient (darker = more facilities)
+        const maxCount = Math.max(...sortedCounts);
+        const minCount = Math.min(...sortedCounts);
+        const barColors = sortedCounts.map(c=>{
+            const ratio = (c-minCount)/(maxCount-minCount+0.0001);
+            const r = Math.floor(50 + (1-ratio)*100);
+            const g = Math.floor(50 + (1-ratio)*100);
+            const b = Math.floor(150 + ratio*100);
+            return `rgb(${r},${g},${b})`;
+        });
+
+        new Chart(document.getElementById("cityChart"), {
+            type:'bar',
+            data: {
+                labels: sortedCities,
+                datasets: [{ label:'Facilities per City', data: sortedCounts, backgroundColor: barColors }]
+            },
+            options: {
+                responsive:true,
+                plugins:{ legend:{display:false}, tooltip:{mode:'index',intersect:false} },
+                scales: {
+                    y:{ beginAtZero:true, title:{display:true,text:'Number of Facilities'} },
+                    x:{ title:{display:true,text:'City'} }
+                }
+            }
+        });
+
+        // ----- Heatmap -----
+        const heatResp = await fetch("/api/charts");
+        const heatData = await heatResp.json();
+
+        if(!heatData || heatData.length===0){ alert("No heatmap data available"); return; }
+
+        const map = L.map('map').setView([-19.0, 29.9], 6);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: "&copy; OpenStreetMap contributors"
+        }).addTo(map);
+
+        L.heatLayer(heatData, {
+            radius:25,
+            blur:15,
+            maxZoom:12,
+            gradient:{0.2:'blue',0.4:'lime',0.6:'yellow',0.8:'orange',1.0:'red'}
+        }).addTo(map);
+
+    } catch(err) {
+        console.error("Failed to load charts:", err);
+        alert("Failed to load charts. Check console.");
+    }
+}
+
+loadCharts();
+</script>
+
+</body>
+</html>

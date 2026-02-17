@@ -1,0 +1,409 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\backend\\app.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\app.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\backend\\utils\\facility_type.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\utils\\facility_type.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\frontend\\templates\\map.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\templates\\map.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\backend\\utils\\__init__.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\utils\\__init__.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\backend\\facility_type.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\facility_type.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\frontend\\templates\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\templates\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\frontend\\templates\\map\\map.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\templates\\map\\map.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\facilities_geocoded1.csv||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:data\\facilities_geocoded1.csv||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\scraper\\geocode.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:scraper\\geocode.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\scraper\\scraper.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:scraper\\scraper.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\frontend\\templates\\base.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\templates\\base.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\backend\\change_detector.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\change_detector.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\build_final.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:data\\build_final.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\facilities_final.csv||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:data\\facilities_final.csv||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\product_map.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:data\\product_map.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\last_snapshot.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:data\\last_snapshot.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\facilities_raw1.csv||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:data\\facilities_raw1.csv||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\scraper\\geocode_fast.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:scraper\\geocode_fast.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\manual_coordinates.csv||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:data\\manual_coordinates.csv||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\backend\\address_cleaner.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\address_cleaner.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\backend\\clean_data.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\clean_data.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\scrape_hpa_facilities.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:data\\scrape_hpa_facilities.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\frontend\\static\\favicon.ico||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\static\\favicon.ico||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\frontend\\templates\\manager.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\templates\\manager.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "app.py",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\backend\\app.py",
+              "RelativeDocumentMoniker": "backend\\app.py",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\backend\\app.py",
+              "RelativeToolTip": "backend\\app.py",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAAC4AAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2026-01-13T09:52:25.837Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "facility_type.py",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\backend\\utils\\facility_type.py",
+              "RelativeDocumentMoniker": "backend\\utils\\facility_type.py",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\backend\\utils\\facility_type.py",
+              "RelativeToolTip": "backend\\utils\\facility_type.py",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAgwBEAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2026-01-30T09:12:12.988Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "__init__.py",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\backend\\utils\\__init__.py",
+              "RelativeDocumentMoniker": "backend\\utils\\__init__.py",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\backend\\utils\\__init__.py",
+              "RelativeToolTip": "backend\\utils\\__init__.py",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2026-01-30T09:04:46.458Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "map.html",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\frontend\\templates\\map.html",
+              "RelativeDocumentMoniker": "frontend\\templates\\map.html",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\frontend\\templates\\map.html",
+              "RelativeToolTip": "frontend\\templates\\map.html",
+              "ViewState": "AgIAAMwAAAAAAAAAAADwv9sAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2026-01-30T08:55:10.803Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "facility_type.py",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\backend\\facility_type.py",
+              "RelativeDocumentMoniker": "backend\\facility_type.py",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\backend\\facility_type.py",
+              "RelativeToolTip": "backend\\facility_type.py",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAgwJIAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2026-01-30T08:31:06.292Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "index.html",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\frontend\\templates\\index.html",
+              "RelativeDocumentMoniker": "frontend\\templates\\index.html",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\frontend\\templates\\index.html",
+              "RelativeToolTip": "frontend\\templates\\index.html",
+              "ViewState": "AgIAAFIAAAAAAAAAAADwv5cAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2026-01-13T13:31:58.021Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "map.html",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\frontend\\templates\\map\\map.html",
+              "RelativeDocumentMoniker": "frontend\\templates\\map\\map.html",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\frontend\\templates\\map\\map.html",
+              "RelativeToolTip": "frontend\\templates\\map\\map.html",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAI0AAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2026-01-23T08:12:53.437Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "facilities_geocoded1.csv",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\facilities_geocoded1.csv",
+              "RelativeDocumentMoniker": "data\\facilities_geocoded1.csv",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\facilities_geocoded1.csv",
+              "RelativeToolTip": "data\\facilities_geocoded1.csv",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002120|",
+              "WhenOpened": "2026-01-28T09:26:47.329Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "scraper.py",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\scraper\\scraper.py",
+              "RelativeDocumentMoniker": "scraper\\scraper.py",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\scraper\\scraper.py",
+              "RelativeToolTip": "scraper\\scraper.py",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAABEAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2026-01-13T13:49:13.759Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "geocode.py",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\scraper\\geocode.py",
+              "RelativeDocumentMoniker": "scraper\\geocode.py",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\scraper\\geocode.py",
+              "RelativeToolTip": "scraper\\geocode.py",
+              "ViewState": "AgIAAJEAAAAAAAAAAAAAAA0AAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2026-01-19T13:16:00.494Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "base.html",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\frontend\\templates\\base.html",
+              "RelativeDocumentMoniker": "frontend\\templates\\base.html",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\frontend\\templates\\base.html",
+              "RelativeToolTip": "frontend\\templates\\base.html",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABcAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2026-01-27T07:30:37.809Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "change_detector.py",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\backend\\change_detector.py",
+              "RelativeDocumentMoniker": "backend\\change_detector.py",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\backend\\change_detector.py",
+              "RelativeToolTip": "backend\\change_detector.py",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFAAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2026-01-13T10:06:55.522Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "build_final.py",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\build_final.py",
+              "RelativeDocumentMoniker": "data\\build_final.py",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\build_final.py",
+              "RelativeToolTip": "data\\build_final.py",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAAAkAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2026-01-26T12:25:10.237Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "facilities_final.csv",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\facilities_final.csv",
+              "RelativeDocumentMoniker": "data\\facilities_final.csv",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\facilities_final.csv",
+              "RelativeToolTip": "data\\facilities_final.csv",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002120|",
+              "WhenOpened": "2026-01-26T11:05:13.496Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "product_map.json",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\product_map.json",
+              "RelativeDocumentMoniker": "data\\product_map.json",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\product_map.json",
+              "RelativeToolTip": "data\\product_map.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-01-23T13:09:39.286Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "last_snapshot.json",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\last_snapshot.json",
+              "RelativeDocumentMoniker": "data\\last_snapshot.json",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\last_snapshot.json",
+              "RelativeToolTip": "data\\last_snapshot.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAG8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-01-23T07:53:59.585Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "geocode_fast.py",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\scraper\\geocode_fast.py",
+              "RelativeDocumentMoniker": "scraper\\geocode_fast.py",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\scraper\\geocode_fast.py",
+              "RelativeToolTip": "scraper\\geocode_fast.py",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2026-01-21T08:00:01.503Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "facilities_raw1.csv",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\facilities_raw1.csv",
+              "RelativeDocumentMoniker": "data\\facilities_raw1.csv",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\facilities_raw1.csv",
+              "RelativeToolTip": "data\\facilities_raw1.csv",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002120|",
+              "WhenOpened": "2026-01-21T10:42:43.299Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "manual_coordinates.csv",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\manual_coordinates.csv",
+              "RelativeDocumentMoniker": "data\\manual_coordinates.csv",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\manual_coordinates.csv",
+              "RelativeToolTip": "data\\manual_coordinates.csv",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002120|",
+              "WhenOpened": "2026-01-20T08:36:45.768Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "address_cleaner.py",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\backend\\address_cleaner.py",
+              "RelativeDocumentMoniker": "backend\\address_cleaner.py",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\backend\\address_cleaner.py",
+              "RelativeToolTip": "backend\\address_cleaner.py",
+              "ViewState": "AgIAADIAAAAAAAAAAAAgwEAAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2026-01-19T12:48:14.304Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "scrape_hpa_facilities.py",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\scrape_hpa_facilities.py",
+              "RelativeDocumentMoniker": "data\\scrape_hpa_facilities.py",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\data\\scrape_hpa_facilities.py",
+              "RelativeToolTip": "data\\scrape_hpa_facilities.py",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2026-01-19T08:47:42.574Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "clean_data.py",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\backend\\clean_data.py",
+              "RelativeDocumentMoniker": "backend\\clean_data.py",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\backend\\clean_data.py",
+              "RelativeToolTip": "backend\\clean_data.py",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2026-01-13T09:52:40.095Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "favicon.ico",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\frontend\\static\\favicon.ico",
+              "RelativeDocumentMoniker": "frontend\\static\\favicon.ico",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\frontend\\static\\favicon.ico",
+              "RelativeToolTip": "frontend\\static\\favicon.ico",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001525|",
+              "WhenOpened": "2026-01-13T14:16:12.676Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "manager.html",
+              "DocumentMoniker": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\frontend\\templates\\manager.html",
+              "RelativeDocumentMoniker": "frontend\\templates\\manager.html",
+              "ToolTip": "C:\\Users\\Nyaradzo\\Documents\\hpa_geographic_mapping\\frontend\\templates\\manager.html",
+              "RelativeToolTip": "frontend\\templates\\manager.html",
+              "ViewState": "AgIAABkAAAAAAAAAAAAAACcAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2026-01-13T13:08:09.824Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "Eye Clinic": [ "Eye Drops", "Antibiotic Eye Ointments" ],
+  "Dental": [ "Analgesics", "Antibiotics", "Antiseptic Mouthwash" ],
+  "Clinic": [ "Injectables", "IV Fluids", "Chronic Medication" ],
+  "Hospital": [ "Bulk Injectables", "Surgical Supplies" ],
+  "Unknown": [ "General OTC Medicines" ]
+}

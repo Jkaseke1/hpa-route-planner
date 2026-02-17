@@ -1,0 +1,52 @@
+<script>
+(async function() {
+    try {
+        const res = await fetch("/api/manager/data_quality", { credentials: "same-origin" });
+
+        if (res.status === 401) {
+            alert("Unauthorized. Please login as manager.");
+            window.location.href = "/manager/login";
+            return;
+        }
+
+        const data = await res.json();
+
+        // Safely handle trend info
+        const trendEl = document.getElementById("trendInfo");
+        if (data.trend) {
+            const facChange = data.trend.facilities_change || 0;
+            const geoChange = data.trend.geocoded_change || 0;
+            trendEl.textContent = 
+                `Facilities change: ${facChange >= 0 ? "+" : ""}${facChange}, ` +
+                `Geocoded change: ${geoChange >= 0 ? "+" : ""}${geoChange}`;
+        } else {
+            trendEl.textContent = "No previous snapshot available";
+        }
+
+        // Fill table
+        const tbody = document.getElementById("tableBody");
+        tbody.innerHTML = ""; // Clear old rows
+
+        if (!data || data.length === 0) {
+            tbody.innerHTML = "<tr><td colspan='5'>No data quality issues 🎉</td></tr>";
+            return;
+        }
+
+        data.forEach(f => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${f["Facility Name"] || ""}</td>
+                <td>${f["City"] || ""}</td>
+                <td>${f["Physical Address"] || "Missing"}</td>
+                <td>${f["Latitude"] ?? "Missing"}</td>
+                <td>${f["Longitude"] ?? "Missing"}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+    } catch (err) {
+        console.error(err);
+        alert("Failed to load manager data");
+    }
+})();
+</script>

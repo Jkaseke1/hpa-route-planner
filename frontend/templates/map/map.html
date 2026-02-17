@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HPA Facilities Map</title>
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Marker Cluster -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial,sans-serif;
+        }
+
+        #map {
+            height: 75vh;
+            width: 100%;
+        }
+
+        .controls {
+            padding: 10px;
+            background: #f8f9fa;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand">📍 HPA Facilities Map</span>
+            <a href="/" class="btn btn-outline-light btn-sm">Dashboard</a>
+        </div>
+    </nav>
+
+    <div class="controls">
+        <select id="cityFilter" class="form-select form-select-sm" style="width:180px;">
+            <option value="">All Cities</option>
+        </select>
+        <input id="searchInput" class="form-control form-control-sm" placeholder="Search facility..." style="width:220px;">
+        <button id="exportBtn" class="btn btn-primary btn-sm">📥 Export CSV</button>
+    </div>
+
+    <div id="map"></div>
+
+    <script>
+        const map = L.map('map', {
+            minZoom: 6, maxZoom: 18,
+            maxBounds: [[-23.5, 25.0], [-15.5, 33.5]],
+            maxBoundsViscosity: 1.0
+        }).setView([-19.0, 29.5], 7);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+        let clusterGroup = L.markerClusterGroup();
+        let allData = [];
+
+        async function loadMap() {
+            const res = await fetch("/api/map/facilities");
+            allData = await res.json();
+
+            populateCityFilter();
+            renderMarkers(allData);
+        }
+
+        function renderMarkers(data) {
+            clusterGroup.clearLayers();
+            data.forEach(f => {
+                const lat = parseFloat(f.latitude);
+                const lng = parseFloat(f.longitude);
+                if (isNaN(lat) || isNaN(lng)) return;
+
+                const marker = L.marker([lat, lng]).bindPopup(`<b>${f["facility name"]}</b><br>${f.city || ""}`);
+                clusterGroup.addLayer(marker);
+            });
+            map.addLayer(clusterGroup);
+        }
+
+        function populateCityFilter() {
+            const cityFilter = document.getElementById("cityFilter");
+            cityFilter.innerHTML = '<option value="">All Cities</option>';
+            const cities = [...new Set(allData.map(f => f.city).filter(Boolean))].sort();
+            cities.forEach(city => {
+                const opt = document.createElement("option");
+                opt.value = city;
+                opt.innerText = city;
+                cityFilter.appendChild(opt);
+            });
+        }
+
+        function applyFilters() {
+            const city = document.getElementById("cityFilter").value;
+            const search = document.getElementById("searchInput").value.toLowerCase();
+
+            const filtered = allData.filter(f => (!city || f.city === city) && f["facility name"].toLowerCase().includes(search));
+            renderMarkers(filtered);
+        }
+
+        function exportCSV() {
+            const city = document.getElementById("cityFilter").value;
+            const search = document.getElementById("searchInput").value.toLowerCase();
+
+            const filtered = allData.filter(f => (!city || f.city === city) && f["facility name"].toLowerCase().includes(search));
+            if (filtered.length === 0) { alert("No data to export"); return; }
+
+            let csv = "data:text/csv;charset=utf-8,";
+            csv += "Facility Name,City,Latitude,Longitude\n";
+            filtered.forEach(f => { csv += `"${f["facility name"]}","${f.city || ""}",${f.latitude},${f.longitude}\n`; });
+
+            const encodedUri = encodeURI(csv);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "facilities_export.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // EVENTS
+        document.getElementById("cityFilter").addEventListener("change", applyFilters);
+        document.getElementById("searchInput").addEventListener("input", applyFilters);
+        document.getElementById("exportBtn").addEventListener("click", exportCSV);
+
+        loadMap();
+    </script>
+</body>
+</html>

@@ -66,10 +66,6 @@
             color: #333;
         }
 
-        .legend-pin {
-            font-size: 18px;
-        }
-
         .form-control, .form-select {
             border-radius: 10px;
             border: 2px solid #e0e0e0;
@@ -135,20 +131,6 @@
             border-color: #0f3460;
         }
 
-        .filter-section {
-            background: #f8f9fa;
-            padding: 12px 15px;
-            border-radius: 12px;
-            margin-top: 10px;
-        }
-
-        .filter-title {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-
         .stats-badge {
             background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
             color: #fff;
@@ -207,7 +189,7 @@
 
         @media (max-width: 768px) {
             #map {
-                height: calc(100vh - 250px);
+                height: calc(100vh - 300px);
             }
             .legend-item {
                 font-size: 12px;
@@ -215,51 +197,10 @@
             .navbar-brand {
                 font-size: 1.2rem;
             }
-        }
-
-        /* Tabbed interface */
-        .nav-tabs-custom {
-            border-bottom: 2px solid #e9ecef;
-        }
-
-        .nav-tabs-custom .nav-link {
-            border: none;
-            color: #6c757d;
-            font-weight: 500;
-            padding: 12px 20px;
-            border-radius: 10px 10px 0 0;
-        }
-
-        .nav-tabs-custom .nav-link.active {
-            background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
-            color: white;
-        }
-
-        .nav-tabs-custom .nav-link:hover:not(.active) {
-            background: #f8f9fa;
-        }
-
-        /* Facilities table */
-        .facility-table {
-            font-size: 13px;
-        }
-
-        .facility-table th {
-            background: #f8f9fa;
-            font-weight: 600;
-            position: sticky;
-            top: 0;
-        }
-
-        .facility-table tr:hover {
-            background: #f8f9fa;
-        }
-
-        /* Tab content */
-        .tab-content {
-            background: white;
-            border-radius: 0 15px 15px 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            .top-panel {
+                margin: 10px;
+                padding: 10px;
+            }
         }
     </style>
 </head>
@@ -273,14 +214,22 @@
         </div>
     </nav>
 
-    <div class="top-panel d-flex flex-column gap-2">
+    <div class="top-panel">
+        <div class="d-flex gap-2 flex-wrap mb-2">
+            <select id="cityFilter" class="form-select form-select-sm" style="max-width:200px">
+                <option value="">All Cities</option>
+            </select>
 
-    <body>
+            <input id="searchInput" class="form-control form-control-sm"
+                   placeholder="Search facility name..." style="max-width:250px">
 
-        <nav class="navbar navbar-dark bg-dark">
-            <div class="container-fluid">
-                <span class="navbar-brand">🗺️ HPA Facilities Map</span>
-                <a href="/" class="btn btn-outline-light btn-sm">Dashboard</a>
+            <button class="btn btn-sm btn-primary" onclick="applyFilters()">🔍 Search</button>
+
+            <button class="btn btn-sm btn-outline-primary" onclick="exportCSV()">⬇ Export CSV</button>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item"><span class="legend-dot" style="background:#e53935;"></span> Hospital</div>
             <div class="legend-item"><span class="legend-dot" style="background:#1e88e5;"></span> Clinic</div>
             <div class="legend-item"><span class="legend-dot" style="background:#43a047;"></span> Pharmacy</div>
             <div class="legend-item"><span class="legend-dot" style="background:#8e24aa;"></span> Dental</div>
@@ -289,7 +238,7 @@
             <span class="stats-badge ms-auto" id="facilityCount">0 facilities</span>
         </div>
 
-        <div class="d-flex gap-3 mt-2">
+        <div class="d-flex gap-3 mt-2 flex-wrap">
             <div class="form-check">
                 <input class="form-check-input type-filter" type="checkbox" id="showHospital" checked onchange="applyFilters()">
                 <label class="form-check-label" for="showHospital">Hospital</label>
@@ -307,251 +256,208 @@
                 <label class="form-check-label" for="showDental">Dental</label>
             </div>
             <div class="form-check">
-
-        <div class="top-panel d-flex flex-column gap-2">
-
-            <div class="d-flex gap-2">
-                <select id="cityFilter" class="form-select form-select-sm" style="max-width:200px">
-                    <option value="">All Cities</option>
-                </select>
-
-                <input id="searchInput" class="form-control form-control-sm"
-                       placeholder="Search facility name..." style="max-width:250px">
-
-                <button class="btn btn-sm btn-outline-primary" onclick="exportCSV()">⬇ Export CSV</button>
+                <input class="form-check-input type-filter" type="checkbox" id="showEye" checked onchange="applyFilters()">
+                <label class="form-check-label" for="showEye">Eye Clinic</label>
             </div>
-
-            <div class="legend">
-                <div class="legend-item"><span class="legend-dot" style="background:#e53935;"></span> Hospital</div>
-                <div class="legend-item"><span class="legend-dot" style="background:#1e88e5;"></span> Clinic</div>
-                <div class="legend-item"><span class="legend-dot" style="background:#43a047;"></span> Pharmacy</div>
-                <div class="legend-item"><span class="legend-dot" style="background:#8e24aa;"></span> Dental</div>
-                <div class="legend-item"><span class="legend-dot" style="background:#fb8c00;"></span> Eye Clinic</div>
-                <div class="legend-item"><span class="legend-dot" style="background:#757575;"></span> Unknown</div>
-                <span class="stats-badge ms-auto" id="facilityCount">0 facilities</span>
+            <div class="form-check">
+                <input class="form-check-input type-filter" type="checkbox" id="showUnknown" checked onchange="applyFilters()">
+                <label class="form-check-label" for="showUnknown">Unknown</label>
             </div>
-
-            <div class="d-flex gap-3 mt-2">
-                <div class="form-check">
-                    <input class="form-check-input type-filter" type="checkbox" id="showHospital" checked onchange="applyFilters()">
-                    <label class="form-check-label" for="showHospital">Hospital</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input type-filter" type="checkbox" id="showClinic" checked onchange="applyFilters()">
-                    <label class="form-check-label" for="showClinic">Clinic</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input type-filter" type="checkbox" id="showPharmacy" checked onchange="applyFilters()">
-                    <label class="form-check-label" for="showPharmacy">Pharmacy</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input type-filter" type="checkbox" id="showDental" checked onchange="applyFilters()">
-                    <label class="form-check-label" for="showDental">Dental</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input type-filter" type="checkbox" id="showEye" checked onchange="applyFilters()">
-                    <label class="form-check-label" for="showEye">Eye Clinic</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input type-filter" type="checkbox" id="showUnknown" checked onchange="applyFilters()">
-                    <label class="form-check-label" for="showUnknown">Unknown</label>
-                </div>
-                <a href="/route-planner" class="btn btn-sm btn-success ms-auto">🚗 Route Planner</a>
-            </div>
-
+            <a href="/route-planner" class="btn btn-sm btn-success ms-auto">🚗 Route Planner</a>
         </div>
+    </div>
 
-        <div id="map"></div>
+    <div id="map"></div>
 
-        <script>
-            const iconColors = {
-                "Hospital": "#e53935",
-                "Clinic": "#1e88e5",
-                "Pharmacy": "#43a047",
-                "Dental": "#8e24aa",
-                "Eye Clinic": "#fb8c00",
-                "Unknown": "#757575"
+    <script>
+        const iconColors = {
+            "Hospital": "#e53935",
+            "Clinic": "#1e88e5",
+            "Pharmacy": "#43a047",
+            "Dental": "#8e24aa",
+            "Eye Clinic": "#fb8c00",
+            "Unknown": "#757575"
+        };
+
+        function getTypeIcon(type) {
+            const icons = {
+                "Hospital": "🏥",
+                "Clinic": "🩺",
+                "Pharmacy": "💊",
+                "Dental": "🦷",
+                "Eye Clinic": "👁️",
+                "Unknown": "📍"
             };
+            return icons[type] || "📍";
+        }
 
-            function getTypeIcon(type) {
-                const icons = {
-                    "Hospital": "🏥",
-                    "Clinic": "🩺",
-                    "Pharmacy": "💊",
-                    "Dental": "🦷",
-                    "Eye Clinic": "👁️",
-                    "Unknown": "📍"
-                };
-                return icons[type] || "📍";
-            }
+        // Use Canvas renderer for better performance
+        const canvasRenderer = L.canvas({ padding: 0.5 });
 
-            // Use Canvas renderer for better performance
-            const canvasRenderer = L.canvas({ padding: 0.5 });
+        const map = L.map("map", {
+            maxBounds: [[-22.5, 25], [-15, 34]],
+            maxBoundsViscosity: 1,
+            preferCanvas: true
+        }).setView([-19.0154, 29.1549], 6);
 
-            const map = L.map("map", {
-                maxBounds: [[-22.5, 25], [-15, 34]],
-                maxBoundsViscosity: 1,
-                preferCanvas: true
-            }).setView([-19.0154, 29.1549], 6);
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
-            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+        let allData = [];
+        let markers = [];
+        let lastHash = "";
 
-            let allData = [];
-            let markers = [];
-            let lastHash = "";
+        function hashData(data) {
+            return JSON.stringify(data).length;
+        }
 
-            function hashData(data) {
-                return JSON.stringify(data).length;
-            }
+        function inferFacilityType(name) {
+            if (!name) return "Unknown";
+            name = name.toLowerCase();
 
-            function inferFacilityType(name) {
-                if (!name) return "Unknown";
-                name = name.toLowerCase();
+            if (name.includes("hospital")) return "Hospital";
+            if (name.includes("clinic")) return "Clinic";
+            if (name.includes("pharmacy")) return "Pharmacy";
+            if (name.includes("dental")) return "Dental";
+            if (name.includes("eye") || name.includes("optic")) return "Eye Clinic";
 
-                if (name.includes("hospital")) return "Hospital";
-                if (name.includes("clinic")) return "Clinic";
-                if (name.includes("pharmacy")) return "Pharmacy";
-                if (name.includes("dental")) return "Dental";
-                if (name.includes("eye") || name.includes("optic")) return "Eye Clinic";
+            return "Unknown";
+        }
 
-                return "Unknown";
-            }
-
-            function loadData() {
-                fetch(`/api/map/facilities?t=${Date.now()}`)
-                    .then(r => r.json())
-                    .then(data => {
-                        data.forEach(d => {
-                            if (!d["Facility Type"]) {
-                                d["Facility Type"] = inferFacilityType(d["Facility Name"]);
-                            }
-                        });
-
-                        const newHash = hashData(data);
-
-                        if (newHash !== lastHash) {
-                            lastHash = newHash;
-                            allData = data;
-                            populateCities(data);
-                            applyFilters();
-                            console.log("🟢 Map updated with new data");
+        function loadData() {
+            fetch(`/api/map/facilities?t=${Date.now()}`)
+                .then(r => r.json())
+                .then(data => {
+                    data.forEach(d => {
+                        if (!d["Facility Type"]) {
+                            d["Facility Type"] = inferFacilityType(d["Facility Name"]);
                         }
-                    })
-                    .catch(err => console.error("Map refresh failed:", err));
-            }
-
-            function populateCities(data) {
-                const sel = document.getElementById("cityFilter");
-                sel.innerHTML = `<option value="">All Cities</option>`;
-                const cities = [...new Set(data.map(d => d.City).filter(Boolean))].sort();
-                cities.forEach(c => {
-                    const o = document.createElement("option");
-                    o.value = c;
-                    o.textContent = c;
-                    sel.appendChild(o);
-                });
-            }
-
-            function render(data) {
-                // Clear existing markers
-                markers.forEach(m => map.removeLayer(m));
-                markers = [];
-
-                data.forEach(d => {
-                    if (!d.Latitude || !d.Longitude) return;
-
-                    const color = iconColors[d["Facility Type"]] || "#757575";
-                    const typeClass = d["Facility Type"].replace(" ", "");
-
-                    // Use circleMarker with Canvas renderer - much faster than divIcon
-                    const marker = L.circleMarker([d.Latitude, d.Longitude], {
-                        renderer: canvasRenderer,
-                        radius: 6,
-                        fillColor: color,
-                        color: "#fff",
-                        weight: 2,
-                        opacity: 1,
-                        fillOpacity: 0.9
                     });
 
-                    marker.bindPopup(`
-                        <div class="popup-title">${d["Facility Name"]}</div>
-                        <div class="popup-city"><i class="fas fa-map-marker-alt"></i> ${d.City || "Unknown City"}</div>
-                        <span class="popup-type type-${typeClass}">${getTypeIcon(d["Facility Type"])} ${d["Facility Type"]}</span>
-                        <div style="margin-top:12px;">
-                            <a class="btn btn-sm btn-primary w-100"
-                               href="https://www.google.com/maps?q=${d.Latitude},${d.Longitude}"
-                               target="_blank">
-                               <i class="fas fa-external-link-alt"></i> View on Google Maps
-                            </a>
-                        </div>
-                    `);
+                    const newHash = hashData(data);
 
-                    marker.addTo(map);
-                    markers.push(marker);
-                });
-            }
+                    if (newHash !== lastHash) {
+                        lastHash = newHash;
+                        allData = data;
+                        populateCities(data);
+                        applyFilters();
+                        console.log("🟢 Map updated with new data");
+                    }
+                })
+                .catch(err => console.error("Map refresh failed:", err));
+        }
 
-            function getSelectedTypes() {
-                const types = [];
-                if (document.getElementById("showHospital").checked) types.push("Hospital");
-                if (document.getElementById("showClinic").checked) types.push("Clinic");
-                if (document.getElementById("showPharmacy").checked) types.push("Pharmacy");
-                if (document.getElementById("showDental").checked) types.push("Dental");
-                if (document.getElementById("showEye").checked) types.push("Eye Clinic");
-                if (document.getElementById("showUnknown").checked) types.push("Unknown");
-                return types;
-            }
+        function populateCities(data) {
+            const sel = document.getElementById("cityFilter");
+            sel.innerHTML = `<option value="">All Cities</option>`;
+            const cities = [...new Set(data.map(d => d.City).filter(Boolean))].sort();
+            cities.forEach(c => {
+                const o = document.createElement("option");
+                o.value = c;
+                o.textContent = c;
+                sel.appendChild(o);
+            });
+        }
 
-            function applyFilters() {
-                const city = cityFilter.value.toLowerCase();
-                const q = searchInput.value.toLowerCase();
-                const selectedTypes = getSelectedTypes();
+        function render(data) {
+            // Clear existing markers
+            markers.forEach(m => map.removeLayer(m));
+            markers = [];
 
-                const filtered = allData.filter(d =>
-                    (!city || d.City?.toLowerCase() === city) &&
-                    (!q || d["Facility Name"]?.toLowerCase().includes(q)) &&
-                    selectedTypes.includes(d["Facility Type"])
-                );
+            data.forEach(d => {
+                if (!d.Latitude || !d.Longitude) return;
 
-                render(filtered);
-                
-                // Update count display
-                document.getElementById("facilityCount").textContent = `${filtered.length} facilities`;
-                console.log(`Showing ${filtered.length} of ${allData.length} facilities`);
-            }
+                const color = iconColors[d["Facility Type"]] || "#757575";
+                const typeClass = d["Facility Type"].replace(" ", "");
 
-            cityFilter.onchange = applyFilters;
-
-            function exportCSV() {
-                let csv = "Facility Name,City,Facility Type,Latitude,Longitude\n";
-                allData.forEach(d => {
-                    csv += `"${d["Facility Name"]}","${d.City}","${d["Facility Type"]}",${d.Latitude},${d.Longitude}\n`;
+                // Use circleMarker with Canvas renderer - much faster than divIcon
+                const marker = L.circleMarker([d.Latitude, d.Longitude], {
+                    renderer: canvasRenderer,
+                    radius: 6,
+                    fillColor: color,
+                    color: "#fff",
+                    weight: 2,
+                    opacity: 1,
+                    fillOpacity: 0.9
                 });
 
-                const blob = new Blob([csv], { type: "text/csv" });
-                const a = document.createElement("a");
-                a.href = URL.createObjectURL(blob);
-                a.download = "hpa_facilities.csv";
-                a.click();
+                marker.bindPopup(`
+                    <div class="popup-title">${d["Facility Name"]}</div>
+                    <div class="popup-city"><i class="fas fa-map-marker-alt"></i> ${d.City || "Unknown City"}</div>
+                    <span class="popup-type type-${typeClass}">${getTypeIcon(d["Facility Type"])} ${d["Facility Type"]}</span>
+                    <div style="margin-top:12px;">
+                        <a class="btn btn-sm btn-primary w-100"
+                           href="https://www.google.com/maps?q=${d.Latitude},${d.Longitude}"
+                           target="_blank">
+                           <i class="fas fa-external-link-alt"></i> View on Google Maps
+                        </a>
+                    </div>
+                `);
+
+                marker.addTo(map);
+                markers.push(marker);
+            });
+        }
+
+        function getSelectedTypes() {
+            const types = [];
+            if (document.getElementById("showHospital").checked) types.push("Hospital");
+            if (document.getElementById("showClinic").checked) types.push("Clinic");
+            if (document.getElementById("showPharmacy").checked) types.push("Pharmacy");
+            if (document.getElementById("showDental").checked) types.push("Dental");
+            if (document.getElementById("showEye").checked) types.push("Eye Clinic");
+            if (document.getElementById("showUnknown").checked) types.push("Unknown");
+            return types;
+        }
+
+        function applyFilters() {
+            const city = cityFilter.value.toLowerCase();
+            const q = searchInput.value.toLowerCase();
+            const selectedTypes = getSelectedTypes();
+
+            const filtered = allData.filter(d =>
+                (!city || d.City?.toLowerCase() === city) &&
+                (!q || d["Facility Name"]?.toLowerCase().includes(q)) &&
+                selectedTypes.includes(d["Facility Type"])
+            );
+
+            render(filtered);
+            
+            // Update count display
+            document.getElementById("facilityCount").textContent = `${filtered.length} facilities`;
+            console.log(`Showing ${filtered.length} of ${allData.length} facilities`);
+        }
+
+        cityFilter.onchange = applyFilters;
+
+        function exportCSV() {
+            let csv = "Facility Name,City,Facility Type,Latitude,Longitude\n";
+            allData.forEach(d => {
+                csv += `"${d["Facility Name"]}","${d.City}","${d["Facility Type"]}",${d.Latitude},${d.Longitude}\n`;
+            });
+
+            const blob = new Blob([csv], { type: "text/csv" });
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "hpa_facilities.csv";
+            a.click();
+        }
+
+        // Auto-refresh on page load
+        async function autoRefresh() {
+            try {
+                await fetch("/api/auto-refresh", { method: "POST" });
+                console.log("Data auto-refreshed on login");
+            } catch (err) {
+                console.error("Auto-refresh failed:", err);
             }
+        }
 
-            // Auto-refresh on page load
-            async function autoRefresh() {
-                try {
-                    await fetch("/api/auto-refresh", { method: "POST" });
-                    console.log("Data auto-refreshed on login");
-                } catch (err) {
-                    console.error("Auto-refresh failed:", err);
-                }
-            }
+        // Initial load with auto-refresh
+        autoRefresh().then(() => loadData());
 
-            // Initial load with auto-refresh
-            autoRefresh().then(() => loadData());
+        // Auto-refresh every 30 seconds
+        setInterval(loadData, 30000);
+    </script>
 
-            // 🔄 Auto-refresh every 30 seconds
-            setInterval(loadData, 30000);
-        </script>
-
-    </body>
-    </html>
+</body>
+</html>

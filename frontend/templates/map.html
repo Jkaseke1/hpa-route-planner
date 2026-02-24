@@ -35,13 +35,6 @@
             color: #fff !important;
         }
 
-        #map {
-            height: calc(100vh - 200px);
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            margin: 15px;
-        }
-
         .top-panel {
             background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
             padding: 15px 20px;
@@ -188,9 +181,6 @@
         }
 
         @media (max-width: 768px) {
-            #map {
-                height: calc(100vh - 300px);
-            }
             .legend-item {
                 font-size: 12px;
             }
@@ -201,43 +191,42 @@
                 margin: 10px;
                 padding: 10px;
             }
-            .main-content {
-                flex-direction: column !important;
-            }
-            .map-container, .results-container {
-                width: 100% !important;
-            }
             .results-container {
-                max-height: 300px;
+                width: 200px;
             }
         }
 
         .main-content {
-            display: flex;
-            padding: 0 15px 15px 15px;
-            gap: 15px;
+            position: relative;
+            margin: 0 15px 15px 15px;
             height: calc(100vh - 200px);
         }
 
         .map-container {
-            flex: 1;
-            min-width: 0;
+            width: 100%;
+            height: 100%;
         }
 
         .map-container #map {
             margin: 0;
             height: 100%;
             width: 100%;
+            border-radius: 15px;
         }
 
         .results-container {
-            width: 350px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 300px;
+            max-height: calc(100% - 20px);
             background: white;
             border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.3);
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            z-index: 1000;
         }
 
         .results-header {

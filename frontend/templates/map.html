@@ -296,7 +296,7 @@
             <input id="searchInput" class="form-control form-control-sm"
                    placeholder="Search facility name..." style="max-width:250px">
 
-            <button class="btn btn-sm btn-primary" onclick="applyFilters()">🔍 Search</button>
+            <button class="btn btn-sm btn-primary" onclick="applyFilters(true)">🔍 Search</button>
 
             <button class="btn btn-sm btn-outline-primary" onclick="exportCSV()">⬇ Export CSV</button>
         </div>
@@ -394,6 +394,7 @@
         let allData = [];
         let markers = [];
         let lastHash = "";
+        let searchTriggered = false;
 
         function hashData(data) {
             return JSON.stringify(data).length;
@@ -498,7 +499,8 @@
             return types;
         }
 
-        function applyFilters() {
+        function applyFilters(fromButton) {
+            if (fromButton) searchTriggered = true;
             const city = cityFilter.value.toLowerCase();
             const q = searchInput.value.toLowerCase();
             const selectedTypes = getSelectedTypes();
@@ -510,7 +512,10 @@
             );
 
             render(filtered);
-            renderResults(filtered);
+
+            if (searchTriggered) {
+                renderResults(filtered);
+            }
             
             // Update count display
             document.getElementById("facilityCount").textContent = `${filtered.length} facilities`;

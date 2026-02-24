@@ -718,8 +718,9 @@
             L.latLng(-15.5, 33.1)   // Northeast
         );
 
+        let map;
         try {
-            const map = L.map("map", {
+            map = L.map("map", {
                 maxBounds: zimbabweBounds,
                 maxBoundsViscosity: 1.0,
                 minZoom: 6,

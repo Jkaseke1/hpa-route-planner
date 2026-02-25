@@ -392,6 +392,52 @@
             padding-left: 0 !important;
         }
 
+        /* Suggestions dropdown */
+        .suggestions-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            z-index: 9999;
+            max-height: 250px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .suggestions-dropdown.show {
+            display: block;
+        }
+
+        .suggestion-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.15s;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-item:hover {
+            background: #f0f4ff;
+        }
+
+        .suggestion-name {
+            font-weight: 600;
+            color: #0f3460;
+            font-size: 13px;
+        }
+
+        .suggestion-city {
+            font-size: 11px;
+            color: #888;
+        }
+
         /* My location button */
         .btn-location {
             background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
@@ -440,27 +486,35 @@
         <div class="row g-3">
             <div class="col-md-4">
                 <label class="form-label fw-bold">📍 Starting Point</label>
-                <div class="input-group">
-                    <select id="originSelect" class="form-select" style="flex:1;">
-                        <option value="">Type address or select facility...</option>
-                    </select>
-                    <button class="btn btn-location" type="button" onclick="useMyLocation('origin')" title="Use my location">
-                        <i class="fas fa-crosshairs"></i>
-                    </button>
+                <div class="position-relative">
+                    <div class="input-group">
+                        <input type="text" id="originInput" class="form-control" placeholder="Type facility name or city..." oninput="showSuggestions('origin')" autocomplete="off">
+                        <button class="btn btn-primary" type="button" onclick="searchLocation('origin')" title="Search">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <button class="btn btn-location" type="button" onclick="useMyLocation('origin')" title="Use my location">
+                            <i class="fas fa-crosshairs"></i>
+                        </button>
+                    </div>
+                    <div id="originSuggestions" class="suggestions-dropdown"></div>
                 </div>
-                <small class="text-muted">Search by address, city, or pharmacy name</small>
+                <small class="text-muted" id="originLabel">Search by facility name or city</small>
             </div>
             <div class="col-md-4">
                 <label class="form-label fw-bold">🎯 Destination</label>
-                <div class="input-group">
-                    <select id="destSelect" class="form-select" style="flex:1;">
-                        <option value="">Type address or select facility...</option>
-                    </select>
-                    <button class="btn btn-location" type="button" onclick="useMyLocation('dest')" title="Use my location">
-                        <i class="fas fa-crosshairs"></i>
-                    </button>
+                <div class="position-relative">
+                    <div class="input-group">
+                        <input type="text" id="destInput" class="form-control" placeholder="Type facility name or city..." oninput="showSuggestions('dest')" autocomplete="off">
+                        <button class="btn btn-primary" type="button" onclick="searchLocation('dest')" title="Search">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <button class="btn btn-location" type="button" onclick="useMyLocation('dest')" title="Use my location">
+                            <i class="fas fa-crosshairs"></i>
+                        </button>
+                    </div>
+                    <div id="destSuggestions" class="suggestions-dropdown"></div>
                 </div>
-                <small class="text-muted">Search by address, city, or pharmacy name</small>
+                <small class="text-muted" id="destLabel">Search by facility name or city</small>
             </div>
             <div class="col-md-2">
                 <label class="form-label fw-bold">📏 Corridor</label>
@@ -796,40 +850,94 @@
             }
         }
 
-        // Initialize Select2 dropdowns
+        // Store selected coords for origin and destination
+        let selectedOrigin = null;
+        let selectedDest = null;
+
         function initSelect2() {
-            const facilityOptions = allFacilities.map(f => ({
-                id: `facility:${f.Latitude}:${f.Longitude}`,
-                text: `${f['Facility Name']} (${f.City || 'Unknown'})`,
-                facility: f
-            }));
+            // No-op: replaced by custom autocomplete
+        }
 
-            // Common cities in Zimbabwe
-            const cities = ['Harare', 'Bulawayo', 'Chitungwiza', 'Mutare', 'Gweru', 'Kwekwe', 'Kadoma', 'Masvingo', 'Chinhoyi', 'Marondera'];
-            const cityOptions = cities.map(c => ({ id: `city:${c}`, text: c }));
+        function showSuggestions(target) {
+            const inputEl = document.getElementById(target === 'origin' ? 'originInput' : 'destInput');
+            const dropdown = document.getElementById(target === 'origin' ? 'originSuggestions' : 'destSuggestions');
+            const q = inputEl.value.trim().toLowerCase();
 
-            const allOptions = [
-                { text: 'Cities', children: cityOptions },
-                { text: 'Facilities', children: facilityOptions }
-            ];
+            // Clear stored selection when user types
+            if (target === 'origin') selectedOrigin = null;
+            else selectedDest = null;
 
-            $('#originSelect').select2({
-                theme: 'bootstrap-5',
-                placeholder: 'Type address or select facility...',
-                allowClear: true,
-                tags: true,
-                data: allOptions,
-                width: '100%'
-            });
+            if (q.length < 2) {
+                dropdown.classList.remove('show');
+                dropdown.innerHTML = '';
+                return;
+            }
 
-            $('#destSelect').select2({
-                theme: 'bootstrap-5',
-                placeholder: 'Type address or select facility...',
-                allowClear: true,
-                tags: true,
-                data: allOptions,
-                width: '100%'
-            });
+            const matches = allFacilities.filter(f =>
+                f['Facility Name']?.toLowerCase().includes(q) ||
+                f.City?.toLowerCase().includes(q)
+            ).slice(0, 20);
+
+            if (matches.length === 0) {
+                dropdown.classList.remove('show');
+                return;
+            }
+
+            dropdown.innerHTML = matches.map((f, i) => `
+                <div class="suggestion-item" onclick="selectSuggestion('${target}', ${i}, ${JSON.stringify(f['Facility Name']).replace(/'/g, "&#39;")})">
+                    <div class="suggestion-name">${f['Facility Name']}</div>
+                    <div class="suggestion-city">📍 ${f.City || 'Unknown'} &nbsp;|&nbsp; ${f['Facility Type'] || ''}</div>
+                </div>
+            `).join('');
+
+            // Store matches for selection
+            dropdown._matches = matches;
+            dropdown.classList.add('show');
+        }
+
+        function selectSuggestion(target, index, name) {
+            const dropdown = document.getElementById(target === 'origin' ? 'originSuggestions' : 'destSuggestions');
+            const facility = dropdown._matches[index];
+            const inputEl = document.getElementById(target === 'origin' ? 'originInput' : 'destInput');
+            const labelEl = document.getElementById(target === 'origin' ? 'originLabel' : 'destLabel');
+
+            inputEl.value = `${facility['Facility Name']} (${facility.City || 'Unknown'})`;
+            dropdown.classList.remove('show');
+            dropdown.innerHTML = '';
+
+            const coords = { latitude: facility.Latitude, longitude: facility.Longitude, display_name: facility['Facility Name'] };
+            if (target === 'origin') {
+                selectedOrigin = coords;
+                labelEl.innerHTML = `<span class="text-success">✔ ${facility['Facility Name']}</span>`;
+            } else {
+                selectedDest = coords;
+                labelEl.innerHTML = `<span class="text-success">✔ ${facility['Facility Name']}</span>`;
+            }
+        }
+
+        async function searchLocation(target) {
+            const inputEl = document.getElementById(target === 'origin' ? 'originInput' : 'destInput');
+            const labelEl = document.getElementById(target === 'origin' ? 'originLabel' : 'destLabel');
+            const q = inputEl.value.trim();
+            if (!q) return;
+
+            // If already selected via suggestion, do nothing
+            if (target === 'origin' && selectedOrigin) return;
+            if (target === 'dest' && selectedDest) return;
+
+            labelEl.innerHTML = `<span class="text-muted">Searching...</span>`;
+            const result = await geocodeAddress(q + ', Zimbabwe');
+            if (result && result.latitude) {
+                if (target === 'origin') {
+                    selectedOrigin = result;
+                    labelEl.innerHTML = `<span class="text-success">✔ ${result.display_name || q}</span>`;
+                } else {
+                    selectedDest = result;
+                    labelEl.innerHTML = `<span class="text-success">✔ ${result.display_name || q}</span>`;
+                }
+            } else {
+                labelEl.innerHTML = `<span class="text-danger">✘ Location not found</span>`;
+            }
         }
 
         // Use my location
@@ -852,14 +960,15 @@
                         return;
                     }
 
+                    const coords = { latitude: lat, longitude: lon, display_name: 'My Location' };
                     if (target === 'origin') {
-                        originCoords = { latitude: lat, longitude: lon };
-                        const option = new Option(`My Location (${lat.toFixed(4)}, ${lon.toFixed(4)})`, `coords:${lat}:${lon}`, true, true);
-                        $('#originSelect').append(option).trigger('change');
+                        selectedOrigin = coords;
+                        document.getElementById('originInput').value = `My Location (${lat.toFixed(4)}, ${lon.toFixed(4)})`;
+                        document.getElementById('originLabel').innerHTML = '<span class="text-success">✔ My Location</span>';
                     } else {
-                        destCoords = { latitude: lat, longitude: lon };
-                        const option = new Option(`My Location (${lat.toFixed(4)}, ${lon.toFixed(4)})`, `coords:${lat}:${lon}`, true, true);
-                        $('#destSelect').append(option).trigger('change');
+                        selectedDest = coords;
+                        document.getElementById('destInput').value = `My Location (${lat.toFixed(4)}, ${lon.toFixed(4)})`;
+                        document.getElementById('destLabel').innerHTML = '<span class="text-success">✔ My Location</span>';
                     }
 
                     showNotification('Location set successfully!', 'success');
@@ -871,36 +980,11 @@
             );
         }
 
-        // Parse selection value
-        async function parseSelection(value) {
-            if (!value) return null;
-
-            if (value.startsWith('coords:')) {
-                const parts = value.split(':');
-                return { latitude: parseFloat(parts[1]), longitude: parseFloat(parts[2]), display_name: 'My Location' };
-            }
-
-            if (value.startsWith('facility:')) {
-                const parts = value.split(':');
-                const facility = allFacilities.find(f => 
-                    f.Latitude.toString() === parts[1] && f.Longitude.toString() === parts[2]
-                );
-                if (facility) {
-                    return { 
-                        latitude: facility.Latitude, 
-                        longitude: facility.Longitude, 
-                        display_name: facility['Facility Name']
-                    };
-                }
-            }
-
-            if (value.startsWith('city:')) {
-                const city = value.replace('city:', '');
-                return await geocodeAddress(city + ', Zimbabwe');
-            }
-
-            // Custom text input - geocode it
-            return await geocodeAddress(value + ', Zimbabwe');
+        // Parse selection value - now uses selectedOrigin/selectedDest directly
+        async function parseSelection(target) {
+            if (target === 'origin') return selectedOrigin;
+            if (target === 'dest') return selectedDest;
+            return null;
         }
 
         // Filter functions
@@ -932,13 +1016,19 @@
         }
 
         async function findFacilitiesOnRoute() {
-            const originValue = $('#originSelect').val();
-            const destValue = $('#destSelect').val();
             const corridorKm = parseInt(document.getElementById("corridorSelect").value);
             const showRadius = document.getElementById("radiusToggle").checked;
 
-            if (!originValue || !destValue) {
-                showNotification('Please enter both origin and destination', 'error');
+            // Try to geocode if not yet selected via suggestion
+            if (!selectedOrigin) {
+                await searchLocation('origin');
+            }
+            if (!selectedDest) {
+                await searchLocation('dest');
+            }
+
+            if (!selectedOrigin || !selectedDest) {
+                showNotification('Please select both origin and destination', 'error');
                 return;
             }
 
@@ -952,11 +1042,8 @@
             document.getElementById("facilityTableBody").innerHTML = '<tr><td colspan="5" class="text-center">Loading...</td></tr>';
 
             try {
-                // Parse selections
-                const [originResult, destResult] = await Promise.all([
-                    parseSelection(originValue),
-                    parseSelection(destValue)
-                ]);
+                const originResult = selectedOrigin;
+                const destResult = selectedDest;
 
                 if (!originResult || !originResult.latitude) {
                     showNotification('Could not find origin location', 'error');
@@ -1230,9 +1317,26 @@
             });
         });
 
-        // Enter key triggers search in Select2
-        $(document).on('select2:close', '#originSelect, #destSelect', function() {
-            // Optional: auto-search when both are filled
+        // Close suggestions when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('#originInput') && !e.target.closest('#originSuggestions')) {
+                const d = document.getElementById('originSuggestions');
+                if (d) d.classList.remove('show');
+            }
+            if (!e.target.closest('#destInput') && !e.target.closest('#destSuggestions')) {
+                const d = document.getElementById('destSuggestions');
+                if (d) d.classList.remove('show');
+            }
+        });
+
+        // Enter key on inputs triggers search
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('originInput').addEventListener('keydown', e => {
+                if (e.key === 'Enter') searchLocation('origin');
+            });
+            document.getElementById('destInput').addEventListener('keydown', e => {
+                if (e.key === 'Enter') searchLocation('dest');
+            });
         });
     </script>
 

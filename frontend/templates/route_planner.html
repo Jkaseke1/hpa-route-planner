@@ -880,39 +880,50 @@
 
             if (matches.length === 0) {
                 dropdown.classList.remove('show');
+                dropdown.innerHTML = '<div class="suggestion-item text-muted">No facilities found</div>';
+                dropdown.classList.add('show');
                 return;
             }
 
-            dropdown.innerHTML = matches.map((f, i) => `
-                <div class="suggestion-item" onclick="selectSuggestion('${target}', ${i}, ${JSON.stringify(f['Facility Name']).replace(/'/g, "&#39;")})">
-                    <div class="suggestion-name">${f['Facility Name']}</div>
-                    <div class="suggestion-city">📍 ${f.City || 'Unknown'} &nbsp;|&nbsp; ${f['Facility Type'] || ''}</div>
-                </div>
-            `).join('');
+            // Build items using DOM (avoids inline onclick breakage with special chars)
+            dropdown.innerHTML = '';
+            matches.forEach((facility, i) => {
+                const item = document.createElement('div');
+                item.className = 'suggestion-item';
+                item.innerHTML = `
+                    <div class="suggestion-name">${facility['Facility Name']}</div>
+                    <div class="suggestion-city">📍 ${facility.City || 'Unknown'} &nbsp;|&nbsp; ${facility['Facility Type'] || ''}</div>
+                `;
+                item.addEventListener('mousedown', function(e) {
+                    e.preventDefault(); // prevent input blur before click fires
+                    selectFacility(target, facility);
+                });
+                dropdown.appendChild(item);
+            });
 
-            // Store matches for selection
-            dropdown._matches = matches;
             dropdown.classList.add('show');
         }
 
-        function selectSuggestion(target, index, name) {
-            const dropdown = document.getElementById(target === 'origin' ? 'originSuggestions' : 'destSuggestions');
-            const facility = dropdown._matches[index];
+        function selectFacility(target, facility) {
             const inputEl = document.getElementById(target === 'origin' ? 'originInput' : 'destInput');
+            const dropdown = document.getElementById(target === 'origin' ? 'originSuggestions' : 'destSuggestions');
             const labelEl = document.getElementById(target === 'origin' ? 'originLabel' : 'destLabel');
 
-            inputEl.value = `${facility['Facility Name']} (${facility.City || 'Unknown'})`;
+            const displayText = facility.City
+                ? `${facility['Facility Name']} - ${facility.City}`
+                : facility['Facility Name'];
+
+            inputEl.value = displayText;
             dropdown.classList.remove('show');
             dropdown.innerHTML = '';
 
             const coords = { latitude: facility.Latitude, longitude: facility.Longitude, display_name: facility['Facility Name'] };
             if (target === 'origin') {
                 selectedOrigin = coords;
-                labelEl.innerHTML = `<span class="text-success">✔ ${facility['Facility Name']}</span>`;
             } else {
                 selectedDest = coords;
-                labelEl.innerHTML = `<span class="text-success">✔ ${facility['Facility Name']}</span>`;
             }
+            labelEl.innerHTML = `<span class="text-success">✔ ${displayText}</span>`;
         }
 
         async function searchLocation(target) {
@@ -960,15 +971,34 @@
                         return;
                     }
 
-                    const coords = { latitude: lat, longitude: lon, display_name: 'My Location' };
+                    const inputId = target === 'origin' ? 'originInput' : 'destInput';
+                    const labelId = target === 'origin' ? 'originLabel' : 'destLabel';
+                    document.getElementById(inputId).value = 'Getting location name...';
+                    document.getElementById(labelId).innerHTML = '<span class="text-muted">Resolving...</span>';
+
+                    // Reverse geocode to get place name
+                    let placeName = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+                    try {
+                        const rg = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
+                        const rgData = await rg.json();
+                        if (rgData && rgData.display_name) {
+                            // Extract short name: shop/amenity name or suburb/city
+                            const addr = rgData.address || {};
+                            placeName = addr.pharmacy || addr.amenity || addr.shop || addr.building ||
+                                        addr.neighbourhood || addr.suburb || addr.city_district ||
+                                        addr.city || addr.town || addr.village || rgData.display_name.split(',')[0];
+                        }
+                    } catch(e) {}
+
+                    const coords = { latitude: lat, longitude: lon, display_name: placeName };
                     if (target === 'origin') {
                         selectedOrigin = coords;
-                        document.getElementById('originInput').value = `My Location (${lat.toFixed(4)}, ${lon.toFixed(4)})`;
-                        document.getElementById('originLabel').innerHTML = '<span class="text-success">✔ My Location</span>';
+                        document.getElementById('originInput').value = placeName;
+                        document.getElementById('originLabel').innerHTML = `<span class="text-success">✔ ${placeName}</span>`;
                     } else {
                         selectedDest = coords;
-                        document.getElementById('destInput').value = `My Location (${lat.toFixed(4)}, ${lon.toFixed(4)})`;
-                        document.getElementById('destLabel').innerHTML = '<span class="text-success">✔ My Location</span>';
+                        document.getElementById('destInput').value = placeName;
+                        document.getElementById('destLabel').innerHTML = `<span class="text-success">✔ ${placeName}</span>`;
                     }
 
                     showNotification('Location set successfully!', 'success');

@@ -442,6 +442,7 @@ def facilities_on_route():
             facilities_on_route.append({
                 "facility_name": row.get("facility name", "Unknown"),
                 "city": row.get("city", ""),
+                "address": row.get("physical address", "") or row.get("address", ""),
                 "facility_type": row.get("facility_type", "Unknown"),
                 "latitude": facility_lat,
                 "longitude": facility_lon,

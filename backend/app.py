@@ -396,22 +396,31 @@ def facilities_on_route():
         return R * c
     
     def point_to_line_distance(px, py, x1, y1, x2, y2):
-        """Calculate perpendicular distance from point to line segment"""
-        # Vector from line start to point
-        dx = x2 - x1
-        dy = y2 - y1
+        """Calculate perpendicular distance from point to line segment using haversine"""
+        # Total route length
+        route_len = haversine(y1, x1, y2, x2)
         
-        if dx == 0 and dy == 0:
+        if route_len < 0.001:
+            # Origin and destination are the same point
             return haversine(py, px, y1, x1)
         
-        # Parameter t for closest point on line
-        t = max(0, min(1, ((px - x1) * dx + (py - y1) * dy) / (dx * dx + dy * dy)))
+        # Use dot product in scaled coordinate space to find t
+        # Scale lon differences by cos(lat) to approximate equal-area
+        import math
+        cos_lat = math.cos(math.radians((y1 + y2) / 2))
+        dx = (x2 - x1) * cos_lat
+        dy = y2 - y1
+        dpx = (px - x1) * cos_lat
+        dpy = py - y1
         
-        # Closest point on line
-        closest_x = x1 + t * dx
-        closest_y = y1 + t * dy
+        t = (dpx * dx + dpy * dy) / (dx * dx + dy * dy)
+        t = max(0.0, min(1.0, t))
         
-        return haversine(py, px, closest_y, closest_x)
+        # Closest point on line segment
+        closest_lon = x1 + t * (x2 - x1)
+        closest_lat = y1 + t * (y2 - y1)
+        
+        return haversine(py, px, closest_lat, closest_lon)
     
     facilities_on_route = []
     

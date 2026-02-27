@@ -976,17 +976,27 @@
                     document.getElementById(inputId).value = 'Getting location name...';
                     document.getElementById(labelId).innerHTML = '<span class="text-muted">Resolving...</span>';
 
-                    // Reverse geocode to get place name
+                    // Reverse geocode to get precise place name
                     let placeName = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
                     try {
-                        const rg = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
+                        const rg = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&zoom=18&addressdetails=1`);
                         const rgData = await rg.json();
-                        if (rgData && rgData.display_name) {
-                            // Extract short name: shop/amenity name or suburb/city
+                        if (rgData) {
                             const addr = rgData.address || {};
-                            placeName = addr.pharmacy || addr.amenity || addr.shop || addr.building ||
-                                        addr.neighbourhood || addr.suburb || addr.city_district ||
-                                        addr.city || addr.town || addr.village || rgData.display_name.split(',')[0];
+                            // Priority: named place > road + suburb > suburb > city
+                            const namedPlace = addr.pharmacy || addr.amenity || addr.shop ||
+                                              addr.office || addr.building || addr.commercial ||
+                                              addr.industrial || addr.retail || rgData.name;
+                            if (namedPlace) {
+                                placeName = namedPlace;
+                            } else if (addr.road) {
+                                const area = addr.suburb || addr.neighbourhood || addr.city_district || addr.city || addr.town || '';
+                                placeName = area ? `${addr.road}, ${area}` : addr.road;
+                            } else {
+                                placeName = addr.suburb || addr.neighbourhood || addr.city_district ||
+                                            addr.city || addr.town || addr.village ||
+                                            rgData.display_name.split(',')[0];
+                            }
                         }
                     } catch(e) {}
 

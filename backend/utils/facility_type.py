@@ -8,7 +8,7 @@ def detect_facility_type(name) -> str:
         return "Hospital"
     if "clinic" in name:
         return "Clinic"
-    if "pharmacy" in name:
+    if any(k in name for k in ["pharmacy", "pharmaceutical", "pharma", "chemist", "drug store", "drugstore"]):
         return "Pharmacy"
     if "dental" in name:
         return "Dental"

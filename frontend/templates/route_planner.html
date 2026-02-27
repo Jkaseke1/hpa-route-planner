@@ -1100,6 +1100,7 @@
                 });
 
                 const data = await res.json();
+                currentFacilities = data.facilities || [];
                 currentFacilities.forEach((f, idx) => f.index = idx);
                 filteredFacilities = [...currentFacilities];
 

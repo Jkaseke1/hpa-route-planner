@@ -1217,6 +1217,16 @@
             }
         });
 
+        function clearMap() {
+            markers.forEach(m => map.removeLayer(m));
+            markers = [];
+            if (routeLine) { map.removeLayer(routeLine); routeLine = null; }
+            if (originMarker) { map.removeLayer(originMarker); originMarker = null; }
+            if (destMarker) { map.removeLayer(destMarker); destMarker = null; }
+            corridorCircles.forEach(c => map.removeLayer(c));
+            corridorCircles = [];
+        }
+
         function updateStats(facilities) {
             document.getElementById("totalFacilities").textContent = facilities.length;
             document.getElementById("pharmacyCount").textContent = facilities.filter(f => f.facility_type === "Pharmacy").length;
